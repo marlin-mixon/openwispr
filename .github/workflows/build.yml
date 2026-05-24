@@ -89,8 +89,11 @@ jobs:
         working-directory: apps/desktop/src-tauri           
 
       - name: Build Tauri app
+        env:
+          CFLAGS: "/MD"
+          CXXFLAGS: "/MD"
         run: pnpm tauri build --verbose
-        working-directory: apps/desktop     
+        working-directory: apps/desktop  
 
       - name: Upload installer
         uses: actions/upload-artifact@v4

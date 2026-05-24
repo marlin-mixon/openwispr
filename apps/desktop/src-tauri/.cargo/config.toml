@@ -1,6 +1,7 @@
 [env]
 MACOSX_DEPLOYMENT_TARGET = "10.15"
 CMAKE_OSX_DEPLOYMENT_TARGET = "10.15"
+SHERPA_ONNX_STATIC = "0"
 
 [target.x86_64-pc-windows-msvc]
 rustflags = [
