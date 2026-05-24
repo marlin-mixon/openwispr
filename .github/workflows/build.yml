@@ -61,6 +61,18 @@ jobs:
         working-directory: apps/desktop
         shell: pwsh
 
+      - name: Debug - Check crates exist
+        run: |
+          Write-Host "=== Repo root contents ==="
+          Get-ChildItem -Path D:\a\openwispr\openwispr
+          Write-Host "=== crates folder ==="
+          if (Test-Path "D:\a\openwispr\openwispr\crates") { 
+            Get-ChildItem "D:\a\openwispr\openwispr\crates" 
+          } else { 
+            Write-Host "NO CRATES FOLDER FOUND" 
+          }
+        shell: pwsh  
+
       - name: Build Tauri app (no extra cd)
         run: pnpm tauri build
         working-directory: apps/desktop
