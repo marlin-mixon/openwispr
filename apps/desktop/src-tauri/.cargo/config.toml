@@ -6,7 +6,5 @@ SHERPA_ONNX_STATIC = "0"
 [target.x86_64-pc-windows-msvc]
 rustflags = [
   "-C", "link-arg=/DEFAULTLIB:advapi32.lib",
-  "-C", "link-arg=/DEFAULTLIB:secur32.lib",
-  "-C", "link-arg=/NODEFAULTLIB:libcmt.lib",
-  "-C", "link-arg=/NODEFAULTLIB:libcpmt.lib"
+  "-C", "link-arg=/DEFAULTLIB:secur32.lib"
 ]
