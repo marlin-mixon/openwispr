@@ -9,6 +9,7 @@
     "start": "vite preview"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.0",
     "@tailwindcss/postcss": "^4.1.18",
     "@tauri-apps/cli": "1.5.11",
     "@types/react": "^19.2.13",
