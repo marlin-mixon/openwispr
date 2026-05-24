@@ -73,13 +73,13 @@ jobs:
           }
         shell: pwsh  
 
-      - name: Build Tauri app
-        run: pnpm tauri build --verbose
-        working-directory: apps/desktop
-
       - name: Debug - Run cargo check directly
         run: cargo check
-        working-directory: apps/desktop/src-tauri        
+        working-directory: apps/desktop/src-tauri           
+
+      - name: Build Tauri app
+        run: pnpm tauri build --verbose
+        working-directory: apps/desktop     
 
       - name: Upload installer
         uses: actions/upload-artifact@v4
