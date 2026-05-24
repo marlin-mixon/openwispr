@@ -38,12 +38,26 @@ jobs:
         run: pnpm build
         working-directory: apps/desktop
 
-      - name: Debug - List apps/desktop after build
-        run: dir
+      - name: Debug - Check if dist was created
+        run: |
+          Write-Host "=== apps/desktop contents ==="
+          Get-ChildItem -Path . 
+          Write-Host "=== dist folder (if exists) ==="
+          if (Test-Path "dist") { Get-ChildItem -Path dist } else { Write-Host "NO DIST FOLDER FOUND" }
+          Write-Host "=== vite.config.ts contents ==="
+          Get-Content vite.config.ts
+          Write-Host "=== package.json devDependencies ==="
+          Get-Content package.json | Select-String -Pattern "plugin-react|vite"
         working-directory: apps/desktop
+        shell: pwsh
 
-      - name: Debug - Show tauri.conf.json distDir
-        run: Get-Content src-tauri/tauri.conf.json | Select-String "distDir"
+      - name: Debug - List apps/desktop after build
+        run: Get-ChildItem -Recurse -Depth 2   # <-- change dir to Get-ChildItem
+        working-directory: apps/desktop
+        shell: pwsh
+
+      - name: Debug - Show full tauri.conf.json
+        run: Get-Content src-tauri/tauri.conf.json  # <-- show whole file, not just distDir
         working-directory: apps/desktop
         shell: pwsh
 
