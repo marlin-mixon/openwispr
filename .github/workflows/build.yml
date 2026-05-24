@@ -90,8 +90,8 @@ jobs:
 
       - name: Build Tauri app
         env:
-          CFLAGS: "/MD"
-          CXXFLAGS: "/MD"
+          CFLAGS: "/MD /std:c++17"
+          CXXFLAGS: "/MD /std:c++17"          
         run: pnpm tauri build --verbose
         working-directory: apps/desktop  
 
