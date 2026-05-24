@@ -88,12 +88,18 @@ jobs:
         run: cargo check
         working-directory: apps/desktop/src-tauri           
 
+      - name: Clear Rust build cache
+        run: cargo clean
+        working-directory: apps/desktop/src-tauri
+
       - name: Build Tauri app
         env:
           CFLAGS: "/MD /std:c++17"
-          CXXFLAGS: "/MD /std:c++17"          
+          CXXFLAGS: "/MD /std:c++17"
+          CMAKE_CXX_FLAGS: "/MD /std:c++17"
+          CMAKE_C_FLAGS: "/MD"
         run: pnpm tauri build --verbose
-        working-directory: apps/desktop  
+        working-directory: apps/desktop        
 
       - name: Upload installer
         uses: actions/upload-artifact@v4
