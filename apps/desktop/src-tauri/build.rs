@@ -36,5 +36,10 @@ fn main() {
         println!("cargo:rustc-link-arg=-Wl,-rpath,@loader_path");
     }
 
+    if std::env::var("CARGO_CFG_TARGET_OS").unwrap_or_default() == "windows" {
+        println!("cargo:rustc-link-lib=advapi32");
+        println!("cargo:rustc-link-lib=secur32");
+    }
+
     tauri_build::build();
 }
