@@ -204,7 +204,7 @@ fn capture_active_paste_target() {
 #[cfg(target_os = "windows")]
 fn capture_active_paste_target() {
     let hwnd = unsafe { GetForegroundWindow() };
-    if hwnd == 0 {
+    if hwnd == std::ptr::null_mut() {
         if verbose_logs_enabled() {
             eprintln!("[paste] GetForegroundWindow returned null");
         }
@@ -214,7 +214,7 @@ fn capture_active_paste_target() {
         if verbose_logs_enabled() {
             println!("[paste] captured foreground HWND 0x{:X}", hwnd as usize);
         }
-        *slot = Some(hwnd);
+        *slot = Some(hwnd as isize);
     }
 }
 
@@ -271,7 +271,7 @@ fn restore_active_paste_target() {
         return;
     };
 
-    let valid = unsafe { IsWindow(hwnd) != 0 };
+    let valid = unsafe { IsWindow(hwnd as *mut std::ffi::c_void) != 0 };
     if !valid {
         if verbose_logs_enabled() {
             eprintln!("[paste] captured HWND is no longer valid");
@@ -280,7 +280,7 @@ fn restore_active_paste_target() {
     }
 
     unsafe {
-        let _ = SetForegroundWindow(hwnd);
+        let _ = SetForegroundWindow(hwnd as *mut std::ffi::c_void);
     }
     if verbose_logs_enabled() {
         println!("[paste] restored focus to HWND 0x{:X}", hwnd as usize);
