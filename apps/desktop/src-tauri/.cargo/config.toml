@@ -1,3 +1,6 @@
 [env]
 MACOSX_DEPLOYMENT_TARGET = "10.15"
 CMAKE_OSX_DEPLOYMENT_TARGET = "10.15"
+
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "link-arg=/DEFAULTLIB:advapi32.lib", "-C", "link-arg=/DEFAULTLIB:secur32.lib"]
