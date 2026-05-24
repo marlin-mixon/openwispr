@@ -38,8 +38,20 @@ jobs:
         run: pnpm build
         working-directory: apps/desktop
 
-      - name: Build Tauri app
-        run: pnpm tauri build
+      - name: DEBUG - List apps/desktop contents
+        run: dir
+        working-directory: apps/desktop
+
+      - name: DEBUG - Show tauri.conf.json distDir
+        run: type src-tauri\tauri.conf.json | findstr distDir
+        working-directory: apps/desktop
+
+      - name: Build Tauri app (with clean)
+        run: |
+          cd src-tauri
+          cargo clean
+          cd ..
+          pnpm tauri build
         working-directory: apps/desktop
 
       - name: Upload installer
