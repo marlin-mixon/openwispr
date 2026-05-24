@@ -30,28 +30,25 @@ jobs:
           target: x86_64-pc-windows-msvc
           override: true
 
-      - name: Install dependencies (pnpm)
+      - name: Install dependencies
         run: pnpm install
         working-directory: apps/desktop
 
-      - name: Build frontend
+      - name: Build frontend (Vite)
         run: pnpm build
         working-directory: apps/desktop
 
-      - name: DEBUG - List apps/desktop contents
+      - name: Debug - List apps/desktop after build
         run: dir
         working-directory: apps/desktop
 
-      - name: DEBUG - Show tauri.conf.json distDir
-        run: type src-tauri\tauri.conf.json | findstr distDir
+      - name: Debug - Show tauri.conf.json distDir
+        run: Get-Content src-tauri/tauri.conf.json | Select-String "distDir"
         working-directory: apps/desktop
+        shell: pwsh
 
-      - name: Build Tauri app (with clean)
-        run: |
-          cd src-tauri
-          cargo clean
-          cd ..
-          pnpm tauri build
+      - name: Build Tauri app (no extra cd)
+        run: pnpm tauri build
         working-directory: apps/desktop
 
       - name: Upload installer
